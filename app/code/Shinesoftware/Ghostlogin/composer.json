@@ -1,0 +1,21 @@
+{
+    "name": "shinesoftware/module-home",
+    "description": "Homepage Handler",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Michelangelo Turillo",
+            "email": "mturillo@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Shinesoftware\\Home\\": ""
+        }
+    }
+}

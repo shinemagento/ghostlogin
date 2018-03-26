@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="shinesoftware" sortOrder="999" translate="label">
+            <label>Shine Software</label>
+        </tab>
+        <section id="ghostlogin" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+            <label>Ghost Login</label>
+            <tab>shinesoftware</tab>
+            <resource>Shinesoftware_Ghostlogin::config_shinesoftware_Ghostlogin</resource>
+            <group id="settings" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Settings</label>
+
+                <field id="active" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Active</label>
+                    <comment>If active the customers could connect by a direct link to their control panel.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="expire" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Expiring Time</label>
+                    <comment>Set the days before the ghost login expiring date. Set to zero for no expiration. If the link is expired, the customer will be redirect to the login page.</comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="button" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <button_label>Clean Ghost Links Manually</button_label>
+                    <comment>Execute the expiration date check manually.</comment>
+                    <frontend_model>Shinesoftware\Ghostlogin\Block\System\Config\Button</frontend_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+            </group>
+        </section>
+    </system>
+</config>
