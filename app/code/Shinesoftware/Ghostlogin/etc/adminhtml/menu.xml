@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add action="shinesoftware_ghostlogin/token/index" id="Shinesoftware::shinesoftware_ghostlogin_token" module="Shinesoftware_Ghostlogin" parent="Magento_Customer::customer" resource="Magento_Backend::content" sortOrder="40" title="Ghost Login"/>
+	</menu>
+</config>

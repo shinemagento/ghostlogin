@@ -9,14 +9,14 @@ class Login {
     protected $customerRepository;
     protected $customer;
     protected $token;
-    protected $encryptor;
+    protected $pseudoCrypt;
 
     /**
      * Login constructor.
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
      * @param \Magento\Customer\Model\Customer $customer
-     * @param \Magento\Framework\Encryption\EncryptorInterface $encryptor
+     * @param PseudoCrypt $pseudoCrypt
      * @param Token $token
      * @param \Shinesoftware\Licenses\Model\Logger\Shinelogger $logger
      */
@@ -24,7 +24,7 @@ class Login {
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
         \Magento\Customer\Model\Customer $customer,
-        \Magento\Framework\Encryption\EncryptorInterface $encryptor,
+        \Shinesoftware\Ghostlogin\Model\PseudoCrypt $pseudoCrypt,
         \Shinesoftware\Ghostlogin\Model\Token $token,
         \Shinesoftware\Licenses\Model\Logger\Shinelogger $logger
     )
@@ -34,7 +34,14 @@ class Login {
         $this->customer = $customer;
         $this->logger = $logger;
         $this->token = $token;
-        $this->encryptor = $encryptor;
+        $this->pseudoCrypt = $pseudoCrypt;
+    }
+
+    /**
+     * @return string
+     */
+    public function generateToken(){
+        return $this->pseudoCrypt->unhash(rand());
     }
 
     /**
@@ -43,7 +50,7 @@ class Login {
     public function createToken($customerId, $custompath=null)
     {
         $token = false;
-        $hash = $this->encryptor->hash(rand()); // Encrypt using the sha256
+        $hash = $this->generateToken();
 
         if(!$this->isExist($hash)){
             $token = $this->saveToken($customerId, $hash, $custompath);
@@ -197,6 +204,7 @@ class Login {
         $this->logger->addInfo('Ghost Login has been fired!');
         $customer = $this->customer->load($customerId);
         if($customer){
+            $this->clearSession();
             $this->customerSession->setCustomerAsLoggedIn($customer);
             $this->customerSession->regenerateId();
         }else{

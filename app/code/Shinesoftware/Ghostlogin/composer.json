@@ -1,11 +1,12 @@
 {
-    "name": "shinesoftware/module-home",
-    "description": "Homepage Handler",
-    "license": "proprietary",
+    "name": "shinesoftware/module-ghostlogin",
+    "description": "",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
     "authors": [
         {
-            "name": "Michelangelo Turillo",
-            "email": "mturillo@gmail.com"
+            "email": "mturillo@gmail.com",
+            "name": "Michelangelo Turillo"
         }
     ],
     "minimum-stability": "dev",
@@ -15,7 +16,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Shinesoftware\\Home\\": ""
+            "Shinesoftware\\Ghostlogin\\": ""
         }
     }
 }

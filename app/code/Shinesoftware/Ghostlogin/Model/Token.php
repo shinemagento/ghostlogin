@@ -1,5 +1,23 @@
 <?php
-
+/**
+ * A Magento 2 module named Shinesoftware/Ghostlogin
+ * Copyright (C) 2017 Michelangelo Turillo
+ * 
+ * This file is part of Shinesoftware/Ghostlogin.
+ * 
+ * Shinesoftware/Ghostlogin is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 namespace Shinesoftware\Ghostlogin\Model;
 
@@ -20,9 +38,9 @@ class Token extends \Magento\Framework\Model\AbstractModel implements TokenInter
      * Get token_id
      * @return string
      */
-    public function getId()
+    public function getTokenId()
     {
-        return $this->getData(self::ID);
+        return $this->getData(self::TOKEN_ID);
     }
 
     /**
@@ -30,13 +48,13 @@ class Token extends \Magento\Framework\Model\AbstractModel implements TokenInter
      * @param string $tokenId
      * @return \Shinesoftware\Ghostlogin\Api\Data\TokenInterface
      */
-    public function setId($tokenId)
+    public function setTokenId($tokenId)
     {
-        return $this->setData(self::ID, $tokenId);
+        return $this->setData(self::TOKEN_ID, $tokenId);
     }
 
     /**
-     * Get creation date
+     * Get created_at
      * @return string
      */
     public function getCreatedAt()
@@ -45,17 +63,17 @@ class Token extends \Magento\Framework\Model\AbstractModel implements TokenInter
     }
 
     /**
-     * Set creation date
-     * @param string $created_at
+     * Set created_at
+     * @param string $createdAt
      * @return \Shinesoftware\Ghostlogin\Api\Data\TokenInterface
      */
-    public function setCreatedAt($created_at)
+    public function setCreatedAt($createdAt)
     {
-        return $this->setData(self::CREATED_AT, $created_at);
+        return $this->setData(self::CREATED_AT, $createdAt);
     }
 
     /**
-     * Get token string
+     * Get token
      * @return string
      */
     public function getToken()
@@ -64,7 +82,7 @@ class Token extends \Magento\Framework\Model\AbstractModel implements TokenInter
     }
 
     /**
-     * Set Token string
+     * Set token
      * @param string $token
      * @return \Shinesoftware\Ghostlogin\Api\Data\TokenInterface
      */
@@ -74,26 +92,7 @@ class Token extends \Magento\Framework\Model\AbstractModel implements TokenInter
     }
 
     /**
-     * Get customer id
-     * @return string
-     */
-    public function getCustomerId()
-    {
-        return $this->getData(self::CUSTOMER_ID);
-    }
-
-    /**
-     * Set customer Id
-     * @param string $customer_id
-     * @return \Shinesoftware\Ghostlogin\Api\Data\TokenInterface
-     */
-    public function setCustomerId($customer_id)
-    {
-        return $this->setData(self::CUSTOMER_ID, $customer_id);
-    }
-
-    /**
-     * Get path string
+     * Get path
      * @return string
      */
     public function getPath()
@@ -102,7 +101,7 @@ class Token extends \Magento\Framework\Model\AbstractModel implements TokenInter
     }
 
     /**
-     * Set custom path
+     * Set path
      * @param string $path
      * @return \Shinesoftware\Ghostlogin\Api\Data\TokenInterface
      */
@@ -112,7 +111,7 @@ class Token extends \Magento\Framework\Model\AbstractModel implements TokenInter
     }
 
     /**
-     * Get token status
+     * Get status
      * @return string
      */
     public function getStatus()
@@ -121,17 +120,37 @@ class Token extends \Magento\Framework\Model\AbstractModel implements TokenInter
     }
 
     /**
-     * Set token status
-     * @param string $path
+     * Set status
+     * @param string $status
      * @return \Shinesoftware\Ghostlogin\Api\Data\TokenInterface
      */
     public function setStatus($status)
     {
         return $this->setData(self::STATUS, $status);
     }
+
+    /**
+     * Get customer_id
+     * @return string
+     */
+    public function getCustomerId()
+    {
+        return $this->getData(self::CUSTOMER_ID);
+    }
+
+    /**
+     * Set customer_id
+     * @param string $customerId
+     * @return \Shinesoftware\Ghostlogin\Api\Data\TokenInterface
+     */
+    public function setCustomerId($customerId)
+    {
+        return $this->setData(self::CUSTOMER_ID, $customerId);
+    }
+
     /**
      * Get counter
-     * @return integer
+     * @return string
      */
     public function getCounter()
     {
@@ -140,13 +159,11 @@ class Token extends \Magento\Framework\Model\AbstractModel implements TokenInter
 
     /**
      * Set counter
-     * @param integer $counter
+     * @param string $counter
      * @return \Shinesoftware\Ghostlogin\Api\Data\TokenInterface
      */
     public function setCounter($counter)
     {
         return $this->setData(self::COUNTER, $counter);
     }
-
-
 }

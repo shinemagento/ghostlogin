@@ -1,0 +1,32 @@
+<?php $customer = $this->getCustomer(); ?>
+
+<div class="fieldset-wrapper customer-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title">
+            <a href="<?php echo $block->getUrl('customer/index/edit', array('id' => $customer->getId())) ?>"><?php echo $customer->getFirstname(); ?> <?php echo $customer->getLastname(); ?></a>
+        </span>
+    </div>
+
+    <table class="admin__table-secondary">
+        <tbody>
+            <tr>
+                <td><label><?php echo __('Firstname') ?></label></td>
+                <td><strong><?php echo $customer->getFirstname(); ?></strong></td>
+                <td><label><?php echo __('Lastname') ?></label></td>
+                <td><strong><?php echo $customer->getLastname(); ?></strong></td>
+            </tr>
+            <tr>
+                <td><label><?php echo __('Email') ?></label></td>
+                <td><a href="mailto:<?php echo $customer->getEmail(); ?>"><?php echo $customer->getEmail(); ?></a></td>
+                <td><label><?php echo __('Is Active') ?></label></td>
+                <td><?php echo $customer->getIsActive(); ?></td>
+            </tr>
+            <tr>
+                <td><label><?php echo __('Created in') ?></label></td>
+                <td><?php echo $customer->getCreatedIn(); ?></td>
+                <td><label><?php echo __('Created at') ?></label></td>
+                <td><?php echo $block->formatDate($customer->getCreatedAt()); ?></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
