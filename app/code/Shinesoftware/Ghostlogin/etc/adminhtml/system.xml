@@ -17,11 +17,21 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
 
+                <field id="deleteafter" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Delete Token After Use</label>
+                    <comment>If active the token will be deleted after the first click.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
                 <field id="expire" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Expiring Time</label>
                     <comment>Set the days before the ghost login expiring date. Set to zero for no expiration. If the link is expired, the customer will be redirect to the login page.</comment>
                     <depends>
                         <field id="active">1</field>
+                        <field id="deleteafter">0</field>
                     </depends>
                 </field>
 

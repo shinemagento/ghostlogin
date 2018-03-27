@@ -10,30 +10,37 @@ class Login {
     protected $customer;
     protected $token;
     protected $pseudoCrypt;
+    protected $storeManager;
 
     /**
      * Login constructor.
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
      * @param \Magento\Customer\Model\Customer $customer
      * @param PseudoCrypt $pseudoCrypt
      * @param Token $token
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Shinesoftware\Licenses\Model\Logger\Shinelogger $logger
      */
     public function __construct(
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
         \Magento\Customer\Model\Customer $customer,
         \Shinesoftware\Ghostlogin\Model\PseudoCrypt $pseudoCrypt,
         \Shinesoftware\Ghostlogin\Model\Token $token,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Shinesoftware\Licenses\Model\Logger\Shinelogger $logger
     )
     {
+        $this->scopeConfig = $scopeConfig;
         $this->customerSession = $customerSession;
         $this->customerRepository = $customerRepository;
         $this->customer = $customer;
         $this->logger = $logger;
         $this->token = $token;
+        $this->storeManager = $storeManager;
         $this->pseudoCrypt = $pseudoCrypt;
     }
 
@@ -42,6 +49,14 @@ class Login {
      */
     public function generateToken(){
         return $this->pseudoCrypt->unhash(rand());
+    }
+
+    /**
+     * @return string
+     */
+    public function getGhostLink($customerId, $custompath=null){
+        $token = $this->createToken($customerId, $custompath);
+        return $this->storeManager->getStore()->getBaseUrl() . 'ghostlogin/index/login/uid/' . $token->getToken();
     }
 
     /**
@@ -114,6 +129,16 @@ class Login {
     }
 
     /**
+     * Delete the token
+     *
+     * @param $token
+     * @return mixed
+     */
+    private function deleteToken($tokenId){
+        return $this->token->load($tokenId)->delete();
+    }
+
+    /**
      * @param string $token
      */
     public function getToken($token)
@@ -165,6 +190,11 @@ class Login {
         if($token->getData()){
             $this->connect($token->getCustomerId());
             $this->incrementCounter($token->getId());
+
+            $delete = $this->scopeConfig->getValue ('ghostlogin/settings/deleteafter', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            if($delete) {
+                $this->deleteToken($token->getId());
+            }
         }else{
             $this->clearSession();
             return false;
